@@ -1,0 +1,30 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    height: 100vh;
+    display: flex;
+    justify-content: center; /* Eixo X  */
+    align-items: center; /* Eixo Y  */
+}
+
+main{
+    width: 50vw;
+    height: 50vh;
+    background-color: #bba2d3;
+    display: flex;
+    justify-content: center; /* Eixo X  */
+    align-items: center; /* Eixo Y  */
+}
+
+button{
+    display: block;
+    width: 100%;
+    margin-top: 10px;
+    padding: 5px;
+    background-color: #ffffff;
+    border: 0;
+}

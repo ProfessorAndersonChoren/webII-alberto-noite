@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Conversor de moedas</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <main>
+      <form action="converter.php" method="post">
+        <label for="money">R$</label>
+        <input
+          type="text"
+          pattern="^\d*[0-9](\.\d*[0-9])?$"
+          id="money"
+          name="money"
+          required
+        />
+        <select id="coin" name="coin">
+            <option value="dollar">Dólar Americano</option>
+            <option value="euro">Euro</option>
+        </select>
+        <button type="submit">Converter</button>
+      </form>
+    </main>
+  </body>
+</html>

@@ -14,7 +14,8 @@ $users = array(
 
 session_start();
 if(empty($_POST)){
-    $_SESSION["msg_error"] = "Ops, houve um erro inesperado!!!";
+    $_SESSION["msg_error"] = "
+    Ops, houve um erro inesperado!!!";
     header("location:message.php");
     exit;
 }

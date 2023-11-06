@@ -11,7 +11,7 @@
 <body class="m-5">
     <nav class="bg-info p-3 d-flex justify-content-between">
         <div>
-            <a href="add-new-call.html" class="text-decoration-none text-white">Novo chamado</a>
+            <a href="add-new-call.php" class="text-decoration-none text-white">Novo chamado</a>
             <a href="list-calls.html" class="text-decoration-none text-white">Lista de chamados</a>
         </div>
         <a href="index.html" class="text-decoration-none text-white">Sair</a>

@@ -1,3 +1,4 @@
+<?php require_once dirname(__DIR__) . "/Controller/Auth_Verify.php"; ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
 
@@ -14,11 +15,10 @@
             <a href="add-new-call.php" class="text-decoration-none text-white">Novo chamado</a>
             <a href="list-calls.html" class="text-decoration-none text-white">Lista de chamados</a>
         </div>
-        <a href="index.html" class="text-decoration-none text-white">Sair</a>
+        <a href="../Controller/Auth.php?operation=logout" class="text-decoration-none text-white">Sair</a>
     </nav>
     <main class="text-center">
-        <?php session_start(); ?>
-        <h1>Bem-vindo ao nosso sistema <?= $_SESSION["name"] ?></h1>
+        <h1>Bem-vindo ao nosso sistema <?= $_SESSION["user_data"]["name"] ?></h1>
         <img src="https://blog.milvus.com.br/wp-content/uploads/atendimento-a-cliente-como-tornar-o-help-desk-mais-eficiente.jpg" alt="Call Center" width=500>
     </main>
 </body>

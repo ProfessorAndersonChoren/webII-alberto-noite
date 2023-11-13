@@ -1,4 +1,7 @@
 <?php
+
+namespace QI\SistemaDeChamados\Controller;
+
 session_start();
 switch ($_GET["operation"]) {
     case "insert":

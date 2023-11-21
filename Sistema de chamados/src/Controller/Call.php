@@ -19,4 +19,6 @@ function insert()
     // TODO Implementar o objeto Call
     // TODO Validar os dados do POST
     $error = array();
+    // TODO Implementar o objeto CallRepository
+    // TODO Insira o registro na base de dados
 }

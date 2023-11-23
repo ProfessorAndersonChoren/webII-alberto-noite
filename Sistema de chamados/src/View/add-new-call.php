@@ -27,8 +27,8 @@
       <input type="number" id="pc_number" name="pc_number" class="form-control" required />
       <label for="floor">Andar do equipamento</label>
       <input type="number" id="floor" name="floor" class="form-control" required />
-      <label for="class">Sala do equipamento</label>
-      <input type="number" id="class" name="class" class="form-control" required />
+      <label for="room">Sala do equipamento</label>
+      <input type="number" id="room" name="room" class="form-control" required />
       <label for="classification" class="d-block">Classificação</label>
       <select name="classification" id="classification" class="form-select">
         <option value="low">Baixo</option>

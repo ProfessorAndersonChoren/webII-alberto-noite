@@ -2,6 +2,12 @@
 
 namespace QI\SistemaDeChamados\Controller;
 
+use Exception;
+use QI\SistemaDeChamados\Model\{Call, Equipment, User};
+use QI\SistemaDeChamados\Model\Repository\CallRepository;
+
+require_once dirname(dirname(__DIR__)) . "/vendor/autoload.php";
+
 session_start();
 switch ($_GET["operation"]) {
     case "insert":
@@ -16,9 +22,42 @@ function insert()
         header("../View/message.php");
         exit;
     }
-    // TODO Implementar o objeto Call
+    $user = new User($_POST["user_email"]);
+    $user->name = $_POST["user_name"];
+    $user->id = 1;
+
+    $equipment = new Equipment(
+        $_POST["floor"],
+        $_POST["room"]
+    );
+    $equipment->id = $_POST["pc_number"];
+
+    $call = new Call(
+        $user,
+        $equipment,
+        $_POST["description"],
+        $_POST["classification"]
+    );
+
     // TODO Validar os dados do POST
-    $error = array();
-    // TODO Implementar o objeto CallRepository
-    // TODO Insira o registro na base de dados
+    $errors = array();
+    if (!empty($errors)) {
+        // TODO MOSTRAR OS ERROS NA TELA DE MENSAGEM
+    }
+    try {
+        $call_repository = new CallRepository();
+        $result = $call_repository->insert($call);
+        if ($result) {
+            $_SESSION["msg_success"] = "Chamado registrado com sucesso!!!";
+        } else {
+            $_SESSION["msg_warning"] = "Lamento, não foi possível registrar o chamado!!!";
+        }
+    } catch (Exception $e) {
+        $_SESSION["msg_error"] = "Ops, houve um erro inesperado!!!";
+
+        // TODO Criar um log de sistema
+    } finally {
+        header("location:../View/message.php");
+        exit;
+    }
 }

@@ -34,6 +34,17 @@
         unset($_SESSION["msg_warning"]);
     endif;
     ?>
+    <?php
+    if (!empty($_SESSION["msg_success"])) :
+    ?>
+        <div class="alert alert-success">
+            <?= $_SESSION["msg_success"] ?>
+            <a href="../../index.html">Voltar</a>
+        </div>
+    <?php
+        unset($_SESSION["msg_success"]);
+    endif;
+    ?>
 </body>
 
 </html>

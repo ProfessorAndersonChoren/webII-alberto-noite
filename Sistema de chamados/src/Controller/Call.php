@@ -19,6 +19,9 @@ switch ($_GET["operation"]) {
     case "delete":
         delete();
         break;
+    case "findOne":
+        findOne();
+        break;
     default:
         $_SESSION["msg_warning"] = "Operação inválida!!!";
         header("location:../View/message.php");
@@ -80,26 +83,54 @@ function findAll()
     header("location:../View/list-of-calls.php");
 }
 
-function delete(){
+function delete()
+{
     $id = $_GET["code"];
-    if(empty($id)){
+    if (empty($id)) {
         $_SESSION["msg_error"] = "O código do chamado é inválido!!!";
         header("location:../View/message.php");
         exit;
     }
-    try{
+    try {
         $call_repository = new CallRepository();
         $result = $call_repository->delete($id);
-        if($result){
+        if ($result) {
             $_SESSION["msg_success"] = "Chamado removido com sucesso!!!";
-        }else{
+        } else {
             $_SESSION["msg_warning"] = "Lamento, não foi possível remover o chamado";
         }
-    }catch(Exception $e){
+    } catch (Exception $e) {
         $_SESSION["msg_error"] = "Ops. Houve um erro inesperado em nossa base de dados!!!";
         $log = $e->getFile() . " - " . $e->getLine() . " - " . $e->getMessage();
         Logger::writeLog($log);
-    }finally{
+    } finally {
+        header("location:../View/message.php");
+    }
+}
+
+function findOne()
+{
+    $id = $_GET["code"];
+    if (empty($id)) {
+        $_SESSION["msg_error"] = "O código do chamado é inválido!!!";
+        header("location:../View/message.php");
+        exit;
+    }
+    try {
+        $call_repository = new CallRepository();
+        $result = $call_repository->findOne($id);
+        if ($result) {
+            $_SESSION["call"] = $result;
+            header("location:../View/call-edit.php");
+        } else {
+            $_SESSION["msg_warning"] = "Lamento, o chamado não foi localizado!!!";
+            header("location:../View/message.php");
+        }
+    } catch (Exception $e) {
+        $_SESSION["msg_error"] = "Ops, houve um erro inesperado em nossa base de dados!!!";
+
+        $log = $e->getFile() . " - " . $e->getLine() . " - " . $e->getMessage();
+        Logger::writeLog($log);
         header("location:../View/message.php");
     }
 }

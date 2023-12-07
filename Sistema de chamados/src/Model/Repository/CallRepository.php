@@ -35,4 +35,13 @@ class CallRepository{
         $stmt = $this->connection->query("select c.*,u.name,u.email,e.floor,e.room from calls c inner join users u on c.user_id = u.id inner join equipments e on c.equipment_id = e.id where c.id=$id;");
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
+
+    public function update($call){
+        $stmt = $this->connection->prepare("update calls set classification = ?, description = ?, notes = ? where id = ?;");
+        $stmt->bindParam(1, $call->classification);
+        $stmt->bindParam(2, $call->description);
+        $stmt->bindParam(3, $call->notes);
+        $stmt->bindParam(4, $call->id);
+        return $stmt->execute();
+    }
 }

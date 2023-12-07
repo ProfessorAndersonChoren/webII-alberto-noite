@@ -22,6 +22,9 @@ switch ($_GET["operation"]) {
     case "findOne":
         findOne();
         break;
+    case "edit":
+        update();
+        break;
     default:
         $_SESSION["msg_warning"] = "Operação inválida!!!";
         header("location:../View/message.php");
@@ -131,6 +134,44 @@ function findOne()
 
         $log = $e->getFile() . " - " . $e->getLine() . " - " . $e->getMessage();
         Logger::writeLog($log);
+        header("location:../View/message.php");
+    }
+}
+function update(){
+    if(empty($_POST)){
+        $_SESSION["msg_error"] = "Ops. Houve um erro inesperado em nossa aplicação";
+        header("location:../View/message.php");
+        exit;
+    }
+    $user = new User($_POST["user_email"]);
+    $equipment = new Equipment(
+        $_POST["floor"],
+        $_POST["room"]
+    );
+    $call = new Call(
+        $user,
+        $equipment,
+        $_POST["description"],
+        $_POST["classification"]
+    );
+    $call->id = $_POST["code"];
+    if(!empty($_POST["notes"])){
+        $call->notes = $_POST["notes"];
+    }
+    try{
+        $call_repository = new CallRepository();
+        $result = $call_repository->update($call);
+        if($result){
+            $_SESSION["msg_success"] = "Chamado atualizado com sucesso!!!";
+        }else{
+            $_SESSION["msg_warning"] = "Não foi possível atualizar o chamado!!!";
+        }
+    }catch(Exception $e){
+        $_SESSION["msg_error"] = "Ops, houve um erro inesperado em nossa base de dados!!!";
+
+        $log = $e->getFile() . " - " . $e->getLine() . " - " . $e->getMessage();
+        Logger::writeLog($log);
+    }finally{
         header("location:../View/message.php");
     }
 }
